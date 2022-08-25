@@ -23,7 +23,7 @@ import (
 	"go.aporeto.io/regolithe/spec"
 	"golang.org/x/sync/errgroup"
 
-	"go.aporeto.io/elemental/cmd/internal/genopenapi3"
+	"github.com/fourhu/elemental/cmd/internal/genopenapi3"
 )
 
 const (
