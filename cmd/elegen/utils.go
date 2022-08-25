@@ -183,12 +183,13 @@ func attrToField(set spec.SpecificationSet, shadow bool, attr *spec.Attribute) s
 	convertedType := attrToType(set, shadow, attr)
 
 	return fmt.Sprintf(
-		"%s\n    %s %s `json:\"%s\" msgpack:\"%s\" bson:\"%s\" mapstructure:\"%s,omitempty\"`\n\n",
+		"%s\n    %s %s `json:\"%s\" msgpack:\"%s\" bson:\"%s\" gorm:\"%s\" mapstructure:\"%s,omitempty\"`\n\n",
 		strings.Join(descLines, "\n"),
 		attr.ConvertedName,
 		convertedType,
 		json,
 		msgpack,
+		bson,
 		bson,
 		strings.Replace(json, ",omitempty", "", 1),
 	)

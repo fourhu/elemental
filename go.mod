@@ -26,3 +26,5 @@ require (
 	golang.org/x/tools v0.1.1
 	gopkg.in/yaml.v2 v2.4.0
 )
+
+replace go.aporeto.io/elemental v0.7.3 => github.com/fourhu/elemental v0.0.0-20220823211843-5e7c7a0a25b4
