@@ -244,9 +244,7 @@ func (o *{{ .Spec.Model.EntityName }}) UnmarshalBSON(bs []byte) error {
     {{ range .Spec.Attributes $latestVersion -}}
     {{- if .Stored }}
     {{- if .Identifier }}
-    if o.{{ .ConvertedName }} != "" {
-        o.ID = s.ID.Hex()
-    }
+    o.ID = s.ID.Hex()
     {{- else }}
     o.{{ .ConvertedName }} = s.{{ .ConvertedName }}
     {{- end }}
