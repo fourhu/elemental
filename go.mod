@@ -70,4 +70,4 @@ require (
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 )
 
-replace go.aporeto.io/elemental => github.com/fourhu/elemental v0.0.0-20220831055556-56a538382c31
+replace go.aporeto.io/elemental => github.com/fourhu/elemental v0.0.0-20220831055758-b49087df7fc0

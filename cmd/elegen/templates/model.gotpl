@@ -172,6 +172,34 @@ func (o *{{ .Spec.Model.EntityName }}) SetIdentifier(id string) {
 }
 {{- end }}
 
+// MarshalBSON implements the bson marshaling interface.
+// This is used to transparently convert ID to MongoDBID as ObectID.
+func (o *{{ .Spec.Model.EntityName }}) MarshalBSON() ([]byte, error) {
+
+    if o == nil {
+        return nil, nil
+    }
+
+    s := &mongoAttributes{{ .Spec.Model.EntityName }}{}
+    {{ range .Spec.Attributes $latestVersion -}}
+    {{- if .Stored }}
+    {{- if .Identifier }}
+    if o.{{ .ConvertedName }} != "" {
+        var err error
+        s.{{ .ConvertedName }}, err = primitive.ObjectIDFromHex(o.{{ .ConvertedName }})
+        if err != nil {
+            return nil, err
+        }
+    }
+    {{- else }}
+    s.{{ .ConvertedName }} = o.{{ .ConvertedName }}
+    {{- end }}
+    {{- end }}
+    {{- end }}
+
+    return bson.Marshal(s)
+}
+
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
 func (o *{{ .Spec.Model.EntityName }}) GetBSON() (interface{}, error) {
@@ -198,6 +226,34 @@ func (o *{{ .Spec.Model.EntityName }}) GetBSON() (interface{}, error) {
     {{- end }}
 
     return s, nil
+}
+
+// UnmarshalBSON implements the bson unmarshaling interface.
+// This is used to transparently convert ID to MongoDBID as ObectID.
+func (o *{{ .Spec.Model.EntityName }}) UnmarshalBSON(bs []byte) error {
+
+    if o == nil {
+        return nil
+    }
+
+    s := &mongoAttributes{{ .Spec.Model.EntityName }}{}
+    if err := bson.Unmarshal(bs, s); err != nil {
+        return err
+    }
+
+    {{ range .Spec.Attributes $latestVersion -}}
+    {{- if .Stored }}
+    {{- if .Identifier }}
+    if o.{{ .ConvertedName }} != "" {
+        o.ID = s.ID.Hex()
+    }
+    {{- else }}
+    o.{{ .ConvertedName }} = s.{{ .ConvertedName }}
+    {{- end }}
+    {{- end }}
+    {{- end }}
+
+    return nil
 }
 
 // SetBSON implements the bson marshaling interface.
