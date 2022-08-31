@@ -180,12 +180,12 @@ func (o *{{ .Spec.Model.EntityName }}) GetBSON() (interface{}, error) {
         return nil, nil
     }
 
-    var err error
     s := &mongoAttributes{{ .Spec.Model.EntityName }}{}
     {{ range .Spec.Attributes $latestVersion -}}
     {{- if .Stored }}
     {{- if .Identifier }}
     if o.{{ .ConvertedName }} != "" {
+        var err error
         s.{{ .ConvertedName }}, err = primitive.ObjectIDFromHex(o.{{ .ConvertedName }})
         if err != nil {
             return nil, err
@@ -909,12 +909,13 @@ func (o *Sparse{{ .Spec.Model.EntityName }}) GetBSON() (interface{}, error) {
         return nil, nil
     }
 
-    var err error
+
     s := &mongoAttributesSparse{{ .Spec.Model.EntityName }}{}
     {{ range .Spec.Attributes $latestVersion -}}
     {{- if .Stored }}
     {{- if .Identifier }}
     if o.{{ .ConvertedName }} != nil {
+        var err error
         s.{{ .ConvertedName }}, err = primitive.ObjectIDFromHex(*o.{{ .ConvertedName }})
         if err != nil {
             return nil, err
