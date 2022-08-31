@@ -6,7 +6,8 @@ package {{ .Set.Configuration.Name }}
 import (
     "fmt"
     "go.aporeto.io/elemental"
-    "github.com/globalsign/mgo/bson"
+    "go.mongodb.org/mongo-driver/bson"
+    "go.mongodb.org/mongo-driver/bson/primitive"
     "github.com/mitchellh/copystructure"
     {{- range .Spec.TypeProviders }}
     "{{ . }}"
@@ -179,12 +180,16 @@ func (o *{{ .Spec.Model.EntityName }}) GetBSON() (interface{}, error) {
         return nil, nil
     }
 
+    var err error
     s := &mongoAttributes{{ .Spec.Model.EntityName }}{}
     {{ range .Spec.Attributes $latestVersion -}}
     {{- if .Stored }}
     {{- if .Identifier }}
     if o.{{ .ConvertedName }} != "" {
-        s.{{ .ConvertedName }} = bson.ObjectIdHex(o.{{ .ConvertedName }})
+        s.{{ .ConvertedName }}, err = primitive.ObjectIDFromHex(o.{{ .ConvertedName }})
+        if err != nil {
+            return nil, err
+        }
     }
     {{- else }}
     s.{{ .ConvertedName }} = o.{{ .ConvertedName }}
@@ -197,7 +202,7 @@ func (o *{{ .Spec.Model.EntityName }}) GetBSON() (interface{}, error) {
 
 // SetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *{{ .Spec.Model.EntityName }}) SetBSON(raw bson.Raw) error {
+func (o *{{ .Spec.Model.EntityName }}) SetBSON(raw bson.RawValue) error {
 
     if o == nil {
         return nil
@@ -904,12 +909,16 @@ func (o *Sparse{{ .Spec.Model.EntityName }}) GetBSON() (interface{}, error) {
         return nil, nil
     }
 
+    var err error
     s := &mongoAttributesSparse{{ .Spec.Model.EntityName }}{}
     {{ range .Spec.Attributes $latestVersion -}}
     {{- if .Stored }}
     {{- if .Identifier }}
     if o.{{ .ConvertedName }} != nil {
-        s.{{ .ConvertedName }} = bson.ObjectIdHex(*o.{{ .ConvertedName }})
+        s.{{ .ConvertedName }}, err = primitive.ObjectIDFromHex(*o.{{ .ConvertedName }})
+        if err != nil {
+            return nil, err
+        }
     }
     {{- else }}
     if o.{{ .ConvertedName}} != nil {
@@ -924,7 +933,7 @@ func (o *Sparse{{ .Spec.Model.EntityName }}) GetBSON() (interface{}, error) {
 
 // SetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *Sparse{{ .Spec.Model.EntityName }}) SetBSON(raw bson.Raw) error {
+func (o *Sparse{{ .Spec.Model.EntityName }}) SetBSON(raw bson.RawValue) error {
 
     if o == nil {
         return nil
