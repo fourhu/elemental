@@ -182,6 +182,10 @@ func attrToField(set spec.SpecificationSet, shadow bool, attr *spec.Attribute) s
 
 	convertedType := attrToType(set, shadow, attr)
 
+	grom := fmt.Sprintf("column:%s", strings.ToLower(attr.Name))
+	if strings.HasPrefix(convertedType, "*") {
+		grom = fmt.Sprintf("%s,serializer:json", grom)
+	}
 	return fmt.Sprintf(
 		"%s\n    %s %s `json:\"%s\" msgpack:\"%s\" bson:\"%s\" gorm:\"%s\" mapstructure:\"%s,omitempty\"`\n\n",
 		strings.Join(descLines, "\n"),
@@ -190,7 +194,7 @@ func attrToField(set spec.SpecificationSet, shadow bool, attr *spec.Attribute) s
 		json,
 		msgpack,
 		bson,
-		bson,
+		grom,
 		strings.Replace(json, ",omitempty", "", 1),
 	)
 }
