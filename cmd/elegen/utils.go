@@ -167,10 +167,13 @@ func attrToField(set spec.SpecificationSet, shadow bool, attr *spec.Attribute) s
 		msgpack += ",omitempty"
 	}
 
+	grom := fmt.Sprintf("column:%s", strings.ToLower(attr.Name))
 	if !attr.Stored {
 		bson = "-"
+		grom = "-"
 	} else if attr.Identifier {
 		bson = "-"
+		grom = fmt.Sprintf("%s;primary_key;autoIncrement", grom)
 	} else if shadow || attr.OmitEmpty {
 		bson += ",omitempty"
 	}
@@ -182,8 +185,7 @@ func attrToField(set spec.SpecificationSet, shadow bool, attr *spec.Attribute) s
 
 	convertedType := attrToType(set, shadow, attr)
 
-	grom := fmt.Sprintf("column:%s", strings.ToLower(attr.Name))
-	if strings.HasPrefix(convertedType, "*") {
+	if strings.HasPrefix(convertedType, "*") || strings.HasPrefix(convertedType, "map") {
 		grom = fmt.Sprintf("%s,serializer:json", grom)
 	}
 	return fmt.Sprintf(
