@@ -185,7 +185,7 @@ func attrToField(set spec.SpecificationSet, shadow bool, attr *spec.Attribute) s
 
 	convertedType := attrToType(set, shadow, attr)
 
-	if strings.HasPrefix(convertedType, "*") || strings.HasPrefix(convertedType, "map") {
+	if strings.HasPrefix(convertedType, "*") || strings.HasPrefix(convertedType, "map") || strings.HasPrefix(convertedType, "[]") {
 		grom = fmt.Sprintf("%s,serializer:json", grom)
 	}
 	return fmt.Sprintf(
