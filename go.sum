@@ -59,10 +59,8 @@ github.com/fatih/color v1.7.0/go.mod h1:Zm6kSWBoL9eyXnKyktHP6abPY2pDugNf5Kwzbycv
 github.com/fatih/structs v1.1.0 h1:Q7juDM0QtcnhCpeyLGQKyg4TOIghuNXrkL32pHAUMxo=
 github.com/fatih/structs v1.1.0/go.mod h1:9NiDSp5zOcgEDl+j00MP/WkGVPOlPRLejGD8Ga6PJ7M=
 github.com/flynn/go-shlex v0.0.0-20150515145356-3f9db97f8568/go.mod h1:xEzjJPgXI435gkrCt3MPfRiAkVrwSbHsst4LCFVfpJc=
-github.com/fourhu/elemental v0.0.0-20220831102436-5e4f85e59198 h1:XYRgJK3ke/6vK7T4ftT3vzvkJ8idL4FazE5MKUFd1Iw=
-github.com/fourhu/elemental v0.0.0-20220831102436-5e4f85e59198/go.mod h1:83cB14fQcKggmOWpVIDO5855C8H4y5f2KdW78N7XnQI=
-github.com/fourhu/regolithe v0.0.0-20220908110638-5c9fb921ac14 h1:IFzzHr2PKBikB2TlLeTDV0t1j2wJbHFjGvWlX4uDMGY=
-github.com/fourhu/regolithe v0.0.0-20220908110638-5c9fb921ac14/go.mod h1:DL7XjIsPsbjApi10Jq4AhPvaGgjLw06txHJ/vCvuKEQ=
+github.com/fourhu/regolithe v0.0.0-20221201085741-92fec4c87266 h1:UlVSwX8UNOVZt/sJ9gMvySZ6FhmNa+1tpgj/EE+EDIc=
+github.com/fourhu/regolithe v0.0.0-20221201085741-92fec4c87266/go.mod h1:nVf70FRBvSwL4KBhPQs8MFIhu2EIcJdGkUR76MVGE9g=
 github.com/fsnotify/fsnotify v1.4.7 h1:IXs+QLmnXW2CcXuY+8Mzv/fWEsPGWxqefPtCP5CnV9I=
 github.com/fsnotify/fsnotify v1.4.7/go.mod h1:jwhsz4b93w/PPRr/qN1Yymfu8t87LnFCMoQvtojpjFo=
 github.com/getkin/kin-openapi v0.65.0 h1:Gq8Z5gzgczdThvR9aoJE9Cfcys4zOaCA6YxsiQQXIB8=

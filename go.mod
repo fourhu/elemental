@@ -71,6 +71,6 @@ require (
 )
 
 replace (
-	go.aporeto.io/elemental => github.com/fourhu/elemental v0.0.0-20220831102436-5e4f85e59198
-	go.aporeto.io/regolithe => github.com/fourhu/regolithe v0.0.0-20220908110638-5c9fb921ac14
+	go.aporeto.io/elemental => ./
+	go.aporeto.io/regolithe => github.com/fourhu/regolithe v0.0.0-20221201085741-92fec4c87266
 )
