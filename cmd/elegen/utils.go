@@ -167,7 +167,7 @@ func attrToField(set spec.SpecificationSet, shadow bool, attr *spec.Attribute) s
 		msgpack += ",omitempty"
 	}
 
-	grom := fmt.Sprintf("column:%s", strings.ToLower(attr.Name))
+	grom := fmt.Sprintf("column:%s", attr.Name)
 	if !attr.Stored {
 		bson = "-"
 		grom = "-"
