@@ -151,7 +151,7 @@ func attrToField(set spec.SpecificationSet, shadow bool, attr *spec.Attribute) s
 
 	json := exposedName
 	msgpack := exposedName
-	bson := strings.ToLower(attr.Name)
+	bson := attr.Name
 
 	if extname, ok := attr.Extensions["bson_name"].(string); ok {
 		bson = extname
