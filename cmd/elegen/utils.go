@@ -207,7 +207,7 @@ func attrToMongoField(set spec.SpecificationSet, shadow bool, attr *spec.Attribu
 		panic(fmt.Sprintf("cannot use attrToMongoField on a non stored attribute: %s", attr.Name))
 	}
 
-	bson := strings.ToLower(attr.Name)
+	bson := attr.Name
 
 	if extname, ok := attr.Extensions["bson_name"].(string); ok {
 		bson = extname
